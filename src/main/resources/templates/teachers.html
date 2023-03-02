@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ICTER Guru WebApp</title>
+
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+
+</head>
+<body>
+	<div class="container">
+
+		<div class="row">
+			<h2>List of Teachers</h2>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-lg-3">
+				<a th:href="@{/teachers/addnew}"
+					class="btn btn-primary bm-3 btn-sm "> Add New Teacher</a>
+			</div>
+
+			<div th:if="${message}" class="alert alert-success text-center">
+				[[${message}]]</div>
+		</div>
+		
+		<br>
+		<table class="table table-bordered">
+			<thead class="thead-light">
+				<tr>
+					<th>Id</th>
+					<th>LastName</th>
+					<th>LastName</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Department</th>
+					<th>Designation</th>
+					<th>Notes</th>
+					<th>Manage</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="teacher: ${teachers}">
+
+					<td > [[${teacher.id} ]]</td>
+					<!-- Or, alternatively, as follows -->
+					<!-- <td th:text="${teacher.id}"></td> -->
+					
+					<td th:text="${teacher.lastName}"></td>
+					<td th:text="${teacher.firstName}"></td>
+					<td th:text="${teacher.email}"></td>
+					<td th:text="${teacher.phone}"></td>
+					<td th:text="${teacher.department}"></td>
+					<td th:text="${teacher.designation}"></td>
+					<td th:text="${teacher.notes}"></td>
+
+					<td><a class="btn btn-danger"
+						
+						th:href="@{/teachers/update/{id} (id=${teacher.id}) }"> Update</a>
+
+						<!-- th:href="@{'/teachers/update/' + ${teacher.id}) }"> Update</a> -->
+					
+						<a class="btn btn-danger"
+						th:href="@{/teachers/delete/{id} (id=${teacher.id})}"> Delete</a>
+
+					</td>
+
+				</tr>
+
+			</tbody>
+
+
+		</table>
+	</div>
+
+
+</body>
+</html>

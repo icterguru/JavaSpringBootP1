@@ -1,0 +1,81 @@
+# Defining the application port
+server:
+  port: 5001
+  
+# Defining the active profile
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+   driver-class-name: com.mysql.cj.jdbc.Driver
+   url: jdbc:mysql://localhost:3306/icterguru_dev?useSSL=false
+   username: root
+   password: YourPassword
+
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        ddl-auto: update
+        show-sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+welcome:
+  message: Welcome to ICTER Gur WebApp Running on Docker Dev Environment V2.
+  
+# Enabling all available enpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+---
+
+spring:
+  profiles: test
+  datasource:
+   driver-class-name: com.mysql.cj.jdbc.Driver
+   url: jdbc:mysql://localhost:3306/icterguru_test
+   username: root
+   password: MokterAcademy
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to ICTER Gur WebApp Running on Test Environment.
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+   driver-class-name: com.mysql.cj.jdbc.Driver
+   url: jdbc:mysql://localhost:3306/icterguru_prod
+   username: root
+   password: MokterAcademy
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to ICTER Gur WebApp Running on Prod Environment.
